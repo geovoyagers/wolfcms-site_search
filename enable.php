@@ -36,8 +36,8 @@ $settings = array('min_wordlength' => '4',
                   'max_terms_allowed' => '5',
                   'title_weight' => '0.2',
                   'meta_weight' => '0.1',
-				  'short_desc_length' => '135',
-				  'results_perpage' => '10'
+                  'short_desc_length' => '135',
+                  'results_perpage' => '10'
                  );
 
 Plugin::setAllSettings($settings, 'site_search');
