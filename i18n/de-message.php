@@ -1,22 +1,22 @@
 <?php
 
-    /**
-     * German language file for search plugin
-	 * Translation version 1.0.0
-     *
-     * @package Plugins
-     * @subpackage site_search
-     *
-     * @author Tina Keil <seven@geovoyagers.de>
-     * @version Wolf 0.7.5
-     */
+ /**
+ * German language file for search plugin
+ * Translation version 1.0.0
+ *
+ * @package Plugins
+ * @subpackage site_search
+ *
+ * @author Tina Keil <seven@geovoyagers.de>
+ * @version Wolf 0.7.5
+ */
 
 	//Get settings
 	$min_wordlength = (int) Plugin::getSetting('min_wordlength', 'site_search');
 	if (!isset($min_wordlength) || empty($min_wordlength)) $min_wordlength = 3;
-	
-    return array(
-    'Site search' => 'Site Suche',
+
+	return array(
+	'Site search' => 'Site Suche',
 	'Search plugin' => 'Such-Plugin',
 	'Provides a basic search function with boolean support' => 'Ermöglicht die Integration einer einfachen Suchfunktion mit boolescher Unterstützung.',
 	'Search function settings' => 'Einstellungen der Suchfunktion',
@@ -37,4 +37,4 @@
 	'Support of logical operators (Booleans)' => 'Unterstützung von logischen Verknüpfungsfunktionen (Boolesche)',
 	'Number of results to return per page on search results page.' => 'Anzahl der Ergebnisse, die pro Seite auf der Suchergebnis-Seite angezeigt werden sollen.',
 	'Results per page' => 'Ergebnisse pro Seite',
-    );
+);
