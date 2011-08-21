@@ -1,28 +1,25 @@
 == WHAT IT IS ==
 
-This search plugin makes use/provides the following features:
+This search plugin provides the following features:
 
-- A basic search function with boolean support for Wolf CMS
-- A settings page in the admin area
+- Bbasic search function with boolean support for Wolf CMS
+- Settings page in the admin area
 - Integrated pagination of results page
 - Snippets for results page and search form
 - Searches title, meta description, meta keywords and content
 - Scores results with weighting of title and meta tags
 - Provides basic support for UTF-8 (e.g. umlauts and accents are accepted)
-
-== TO DO ==
-- Improve Boolean support
-- Search comments if comment plugin is installed
+- Built-in pagination supports "mod_rewrite", if enabled
 
 == HOW TO USE IT ==
 
 * To use the settings and documentation pages, you will first need to enable 
   the plugin!
-* Two new snippets, called search-form and search-results are created when you
-  enable the plugin. 
+* Two new snippets, called site-search-form and site-search-results are 
+  created when you enable the plugin. 
   
-  1) To use, create a new page called searchform, set its status to hidden 
-     and inlcude the search-results snippets in the body of the page, e.g.
+  1) To use, create a new page called search-results, set its status to hidden 
+     and inlcude the following snippet in the body of that page, e.g.
      <?php $this->includeSnippet('site-search-results'); ?>
 	 
   2) Integrate the search form snippet in the sidebar of that page
@@ -31,6 +28,12 @@ This search plugin makes use/provides the following features:
 	 
 * Read the documentation on the plugin page, for explantions how certain
   features and settings work.
+
+== TO DO ==
+
+- Improve pagination
+- Expand language support
+- If comment plugin is installed, also enable search of comments
 
 == NOTES ==
 
