@@ -2,7 +2,7 @@
 
 This search plugin provides the following features:
 
-- Bbasic search function with boolean support for Wolf CMS
+- Basic search function with boolean support for Wolf CMS
 - Settings page in the admin area
 - Integrated pagination of results page
 - Snippets for results page and search form
