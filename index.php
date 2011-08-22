@@ -29,15 +29,15 @@ if (!defined('IN_CMS')) { exit(); }
 define('SEARCH_ROOT', URI_PUBLIC.'wolf/plugins/site_search');
 
 Plugin::setInfos(array(
-    'id'          => 'site_search',
-    'title'       => __('Site search'),
-    'description' => __('Provides a basic search function with boolean support'),
-    'version'     => '1.0.0',
-   	'license'     => 'GPL',
+	'id'          => 'site_search',
+	'title'       => __('Site search'),
+	'description' => __('Provides a basic search function with boolean support'),
+	'version'     => '1.0.0',
+	'license'     => 'GPL',
 	'author'      => 'Tina Keil',
-    'website'     => 'http://www.geovoyagers.de/',
-    'update_url'  => 'http://www.tk-doku.de/wolf/plugin-versions.xml',
-    'require_wolf_version' => '0.6.0'
+	'website'     => 'http://www.geovoyagers.de/',
+	'update_url'  => 'http://www.tk-doku.de/wolf/plugin-versions.xml',
+	'require_wolf_version' => '0.6.0'
 ));
 
 // Add the plugin's tab and controller
@@ -50,7 +50,7 @@ function site_search_truncate($text='', $length, $suffix ='&hellip;', $break=' '
   if (strlen($text) <= $length) return trim($text);
   // is $break present between $limit and the end of the string? 
   if(false !== ($breakpoint = strpos($text, $break, $length))) { 
-    if($breakpoint < strlen($text) - 1) { 
+	if($breakpoint < strlen($text) - 1) { 
 	  $trimmed = substr($text, 0, $breakpoint) . ' ' . $suffix; 
 	} 
   } 
@@ -64,8 +64,8 @@ function site_search($search_query='') {
 	global $__CMS_CONN__;
 	
 	//Get settings
-    $min_wordlength = (int) Plugin::getSetting('min_wordlength', 'site_search');
-    $max_terms_allowed = (int) Plugin::getSetting('max_terms_allowed', 'site_search');
+	$min_wordlength = (int) Plugin::getSetting('min_wordlength', 'site_search');
+	$max_terms_allowed = (int) Plugin::getSetting('max_terms_allowed', 'site_search');
 	$title_weight = (int) Plugin::getSetting('title_weight', 'site_search');
 	$meta_weight = (int) Plugin::getSetting('meta_weight', 'site_search');
 	$short_desc_length = (int) Plugin::getSetting('short_desc_length', 'site_search');
@@ -145,7 +145,7 @@ function site_search($search_query='') {
 			
 		} else {
 			$searchfor_new = $searchfor;
-		    //ok, we only have one search word
+			//ok, we only have one search word
 			$sql_terms = "(content.content LIKE '%".$searchfor."%'
 						  OR meta.title LIKE '%".$searchfor."%'
 						  OR meta.description LIKE '%".$searchfor."%'
@@ -162,24 +162,25 @@ function site_search($search_query='') {
 						LEFT OUTER JOIN ".TABLE_PREFIX."page_part AS content
 						ON meta.id = content.page_id
 						WHERE 
-						  content.name LIKE 'body'
+						  meta.status_id IN (100,200)
+						  AND content.name LIKE 'body'
 						  AND $sql_terms
 						  AND meta.is_protected = 0 
 						  AND meta.needs_login != 1
 						  AND meta.status_id IN (100,200)";
-		
+
 		//echo "$sql_content";
 		
 		$stmt = $__CMS_CONN__->prepare($sql_content);
 		$stmt->execute();
 		$num_rows = $stmt->rowCount();
-		
+
 		if ($num_rows > 0) {	
 			while ($row = $stmt->fetchObject()) {	
-			
+
 				//set some variables
 				$content_score = $meta_score = $title_score = $final_score = $total_score = 0;
-			
+
 				//get rid of any php from content
 				$php_search = array('/<\?((?!\?>).)*\?>/s'); 
 				$no_php = preg_replace($php_search, '', $row->content); //get rid of php
@@ -188,28 +189,28 @@ function site_search($search_query='') {
 				$clean_content = preg_replace('/\s\s+/', ' ', $no_tags); //get rid of white spaces
 				$clean_meta = strip_tags($row->description).' '.strip_tags($row->keywords);
 				$clean_title = strip_tags($row->title);
-				
+
 				//get scoring for title
 				if (preg_match_all("/$searchfor_new/i", $clean_title, $null)) {
 					$title_score += preg_match_all("/$searchfor_new/i", $clean_title, $null);
 				}
-				
+
 				//get scoring for the meta content (e.g. description + keywords)
 				if (preg_match_all("/$searchfor_new/i", $clean_meta, $null)) {
 					$meta_score += preg_match_all("/$searchfor_new/i", $clean_meta, $null);
 				}
-							
+
 				//now get the ids which have the search term we are looking for
 				if (preg_match_all("/$searchfor_new/i", $clean_content, $null)) {	
 					$content_score += preg_match_all("/$searchfor_new/i", $clean_content, $null);
 				}
-				
+
 				//now calculate total score in % taking weight of title and meta into account
 				$total_score = ($title_score * $title_weight) + ($meta_score * $meta_weight) + $content_score;
-				
+
 				//find out the highest total score and asign it to max_score
 				if ($total_score > $max_score) {$max_score = $total_score;}
-				
+
 				//convert to percent if a match was found
 				if ($max_score > 0) {
 					$final_score = number_format(($total_score / $max_score) * 100, 2);
