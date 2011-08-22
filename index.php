@@ -162,9 +162,12 @@ function site_search($search_query='') {
 						LEFT OUTER JOIN ".TABLE_PREFIX."page_part AS content
 						ON meta.id = content.page_id
 						WHERE 
-						  meta.status_id IN (100,200)
-						  AND content.name LIKE 'body'
+						  content.name LIKE 'body'
+						  AND meta.is_protected = 0 
+						  AND meta.needs_login != 1
+						  AND meta.status_id IN (100,200)
 						  AND $sql_terms
+						  AND content.name LIKE 'body'
 						  AND meta.is_protected = 0 
 						  AND meta.needs_login != 1
 						  AND meta.status_id IN (100,200)";
