@@ -35,6 +35,17 @@ This search plugin provides the following features:
 - Expand language support
 - If comment plugin is installed, also enable search of comments
 
+== CHANGELOG ==
+
+Version 1.0.1, 27/09/2011
+- Site_search plugin now supports sqlite
+- Moved texts from result-snippet to language file
+- Fixed wrong error message if search term is too short
+- Settings tab in backend displayed first now
+
+Version 1.0.0, 20/08/2011
+- First release
+
 == NOTES ==
 
 * When you disable the search plugin, the snippets stay available.

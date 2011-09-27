@@ -2,7 +2,7 @@
 
  /**
  * German language file for search plugin
- * Translation version 1.0.0
+ * Translation version 1.0.1
  *
  * @package Plugins
  * @subpackage site_search
@@ -37,4 +37,8 @@
 	'Support of logical operators (Booleans)' => 'Unterstützung von logischen Verknüpfungsfunktionen (Boolesche)',
 	'Number of results to return per page on search results page.' => 'Anzahl der Ergebnisse, die pro Seite auf der Suchergebnis-Seite angezeigt werden sollen.',
 	'Results per page' => 'Ergebnisse pro Seite',
+	'Please enter a search term.' => 'Bitte geben Sie einen Suchbegriff ein.',
+	'Displaying results' => 'Zeige Ergebnisse',
+	'of' => 'von',
+	'matches' => 'Übereinstimmungen'
 );

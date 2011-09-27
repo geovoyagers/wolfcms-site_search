@@ -17,7 +17,7 @@ if (!defined('IN_CMS')) { exit(); }
  * @subpackage site_search
  *
  * @author Tina Keil <seven@geovoyagers.de>
- * @version 1.0.0
+ * @version 1.0.1
  * @since Wolf version 0.7.5
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright Tina Keil, 2011+
@@ -154,12 +154,12 @@ function site_search($search_query='') {
 
 		//get all content which comes into question, this may be more than is need because 
 		//it has html and php tags in it which may contain the search term
-		//we have to get rid of such content later on
+		//we have to get rid of such content later on.
 		$sql_content = "SELECT DISTINCT
 						  meta.id, meta.title, meta.description, meta.keywords, content.content 
 						FROM 
 						  ".TABLE_PREFIX."page AS meta
-						LEFT OUTER JOIN ".TABLE_PREFIX."page_part AS content
+						LEFT JOIN ".TABLE_PREFIX."page_part AS content
 						ON meta.id = content.page_id
 						WHERE 
 						  content.name LIKE 'body'
@@ -176,58 +176,56 @@ function site_search($search_query='') {
 		
 		$stmt = $__CMS_CONN__->prepare($sql_content);
 		$stmt->execute();
-		$num_rows = $stmt->rowCount();
 
-		if ($num_rows > 0) {	
-			while ($row = $stmt->fetchObject()) {	
+		while ($row = $stmt->fetchObject()) {	
 
-				//set some variables
-				$content_score = $meta_score = $title_score = $final_score = $total_score = 0;
+			//set some variables
+			$content_score = $meta_score = $title_score = $final_score = $total_score = 0;
 
-				//get rid of any php from content
-				$php_search = array('/<\?((?!\?>).)*\?>/s'); 
-				$no_php = preg_replace($php_search, '', $row->content); //get rid of php
-				$no_tags = strip_tags($no_php); //get rid of html tags			
+			//get rid of any php from content
+			$php_search = array('/<\?((?!\?>).)*\?>/s'); 
+			$no_php = preg_replace($php_search, '', $row->content); //get rid of php
+			$no_tags = strip_tags($no_php); //get rid of html tags			
 				
-				$clean_content = preg_replace('/\s\s+/', ' ', $no_tags); //get rid of white spaces
-				$clean_meta = strip_tags($row->description).' '.strip_tags($row->keywords);
-				$clean_title = strip_tags($row->title);
+			$clean_content = preg_replace('/\s\s+/', ' ', $no_tags); //get rid of white spaces
+			$clean_meta = strip_tags($row->description).' '.strip_tags($row->keywords);
+			$clean_title = strip_tags($row->title);
 
-				//get scoring for title
-				if (preg_match_all("/$searchfor_new/i", $clean_title, $null)) {
-					$title_score += preg_match_all("/$searchfor_new/i", $clean_title, $null);
-				}
+			//get scoring for title
+			if (preg_match_all("/$searchfor_new/i", $clean_title, $null)) {
+				$title_score += preg_match_all("/$searchfor_new/i", $clean_title, $null);
+			}
 
-				//get scoring for the meta content (e.g. description + keywords)
-				if (preg_match_all("/$searchfor_new/i", $clean_meta, $null)) {
-					$meta_score += preg_match_all("/$searchfor_new/i", $clean_meta, $null);
-				}
+			//get scoring for the meta content (e.g. description + keywords)
+			if (preg_match_all("/$searchfor_new/i", $clean_meta, $null)) {
+				$meta_score += preg_match_all("/$searchfor_new/i", $clean_meta, $null);
+			}
 
-				//now get the ids which have the search term we are looking for
-				if (preg_match_all("/$searchfor_new/i", $clean_content, $null)) {	
-					$content_score += preg_match_all("/$searchfor_new/i", $clean_content, $null);
-				}
+			//now get the ids which have the search term we are looking for
+			if (preg_match_all("/$searchfor_new/i", $clean_content, $null)) {	
+				$content_score += preg_match_all("/$searchfor_new/i", $clean_content, $null);
+			}
 
-				//now calculate total score in % taking weight of title and meta into account
-				$total_score = ($title_score * $title_weight) + ($meta_score * $meta_weight) + $content_score;
+			//now calculate total score in % taking weight of title and meta into account
+			$total_score = ($title_score * $title_weight) + ($meta_score * $meta_weight) + $content_score;
 
-				//find out the highest total score and asign it to max_score
-				if ($total_score > $max_score) {$max_score = $total_score;}
+			//find out the highest total score and asign it to max_score
+			if ($total_score > $max_score) {$max_score = $total_score;}
 
-				//convert to percent if a match was found
-				if ($max_score > 0) {
-					$final_score = number_format(($total_score / $max_score) * 100, 2);
-					$short_desc = site_search_truncate(strip_tags($row->description), $short_desc_length);
-					if ($final_score >= 2) { //a score under 2% is not relevant
-						$results[$row->id] = array('score' => $final_score, 'desc' => $short_desc);
-						arsort($results); //sort, best score first
-					}
+			//convert to percent if a match was found
+			if ($max_score > 0) {
+				$final_score = number_format(($total_score / $max_score) * 100, 2);
+				$short_desc = site_search_truncate(strip_tags($row->description), $short_desc_length);
+				if ($final_score >= 2) { //a score under 2% is not relevant
+					$results[$row->id] = array('score' => $final_score, 'desc' => $short_desc);
+					arsort($results); //sort, best score first
 				}
 			}
 		}
 	}
+
 	//do a last check to see if the array really contains results
-	if (empty($results)) {
+	if (empty($results) && $do_search == true) {
 		echo __('Sorry, no results found.');
 	}
 	return $results;

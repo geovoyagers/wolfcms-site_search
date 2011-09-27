@@ -17,7 +17,7 @@ if (!defined('IN_CMS')) { exit(); }
  * @subpackage site_search
  *
  * @author Tina Keil <seven@geovoyagers.de>
- * @version 1.0.0
+ * @version 1.0.1
  * @since Wolf version 0.7.5
  * @license http://www.gnu.org/licenses/gpl.html GPL License
  * @copyright Tina Keil, 2011+
@@ -31,8 +31,8 @@ class SiteSearchController extends PluginController {
     }
 
     public function index() {
-        $this->documentation();
 		$this->settings();
+        $this->documentation();
     }
 
     public function documentation() {
