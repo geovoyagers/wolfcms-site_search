@@ -32,7 +32,7 @@ Plugin::setInfos(array(
 	'id'          => 'site_search',
 	'title'       => __('Site search'),
 	'description' => __('Provides a basic search function with boolean support'),
-	'version'     => '1.0.0',
+	'version'     => '1.0.1',
 	'license'     => 'GPL',
 	'author'      => 'Tina Keil',
 	'website'     => 'http://www.geovoyagers.de/',
@@ -88,7 +88,7 @@ function site_search($search_query='') {
 	
 	$uni_search_query = utf8_decode($search_query);
 	//only allow normal charset plus some additonal special chars
-	$allowed_extra_chars = 'ÀÁÂÃÄÅÆàáâãäåæÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñÞßÿý+-';
+	$allowed_extra_chars = 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+-';
     
 	//sanitize input $_POST['search']
 	if (strlen($search_query) >= $min_wordlength &&  preg_match('#^[a-zA-Z0-9\x20'.$allowed_extra_chars.']+$#i', $uni_search_query)) {
