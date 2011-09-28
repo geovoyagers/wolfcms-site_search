@@ -23,9 +23,8 @@ if (!defined('IN_CMS')) { exit(); }
  * @copyright Tina Keil, 2011+
  */
  
-/**
- * Root location where search plugin lives.
- */
+
+// Root location where search plugin lives.
 define('SEARCH_ROOT', URI_PUBLIC.'wolf/plugins/site_search');
 
 Plugin::setInfos(array(
