@@ -87,8 +87,8 @@ function site_search($search_query='') {
 	
 	$uni_search_query = utf8_decode($search_query);
 	//only allow normal charset plus some additonal special chars
-	$allowed_extra_chars = '�������������������������������������������������������������+-';
-    
+	$allowed_extra_chars = 'ÀÁÂÃÄÅÆàáâãäåæÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñÞßÿý+-';
+	
 	//sanitize input $_POST['search']
 	if (strlen($search_query) >= $min_wordlength &&  preg_match('#^[a-zA-Z0-9\x20'.$allowed_extra_chars.']+$#i', $uni_search_query)) {
 		$searchfor = trim($search_query);
