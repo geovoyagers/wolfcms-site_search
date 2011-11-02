@@ -32,7 +32,7 @@ Plugin::setInfos(array(
 	'id'          => 'site_search',
 	'title'       => __('Site search'),
 	'description' => __('Provides a basic search function with boolean support'),
-	'version'     => '1.0.0',
+	'version'     => '1.0.1',
 	'license'     => 'GPL',
 	'author'      => 'Tina Keil',
 	'website'     => 'http://www.geovoyagers.de/',
