@@ -23,9 +23,8 @@ if (!defined('IN_CMS')) { exit(); }
  * @copyright Tina Keil, 2011+
  */
  
-/**
- * Root location where search plugin lives.
- */
+
+// Root location where search plugin lives.
 define('SEARCH_ROOT', URI_PUBLIC.'wolf/plugins/site_search');
 
 Plugin::setInfos(array(
@@ -88,8 +87,8 @@ function site_search($search_query='') {
 	
 	$uni_search_query = utf8_decode($search_query);
 	//only allow normal charset plus some additonal special chars
-	$allowed_extra_chars = 'ÀÁÂÃÄÅÆàáâãäåæÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñÞßÿý+-';
-    
+	$allowed_extra_chars = 'Ã€ÃÃ‚ÃƒÃ„Ã…Ã†Ã Ã¡Ã¢Ã£Ã¤Ã¥Ã¦Ã’Ã“Ã”Ã•Ã•Ã–Ã˜Ã²Ã³Ã´ÃµÃ¶Ã¸ÃˆÃ‰ÃŠÃ‹Ã¨Ã©ÃªÃ«Ã°Ã‡Ã§ÃÃŒÃÃŽÃÃ¬Ã­Ã®Ã¯Ã™ÃšÃ›ÃœÃ¹ÃºÃ»Ã¼Ã‘Ã±ÃžÃŸÃ¿Ã½+-';
+	
 	//sanitize input $_POST['search']
 	if (strlen($search_query) >= $min_wordlength &&  preg_match('#^[a-zA-Z0-9\x20'.$allowed_extra_chars.']+$#i', $uni_search_query)) {
 		$searchfor = trim($search_query);
