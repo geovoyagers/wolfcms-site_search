@@ -2,7 +2,7 @@
 
     /**
      * Dutch language file for search plugin
-     * Translation version 1.0.0
+     * Translation version 1.0.1
      *
      * @package Plugins
      * @subpackage site_search
@@ -34,9 +34,13 @@
     'Scoring weight of result, when search term is found in the title.' => 'Gewicht van het resultaat, wanneer de zoekterm in de titel is gevonden.',
     'Scoring weight of result, when search term is found in the meta description or meta keywords tag.' => 'Gewicht van het resultaat, wanneer de zoekterm in de meta beschrijving of meta sleutelwoorden is gevonden.',
     'Char. length of short description of each result, shown on search result page.' => 'Maximale karakterlengte van de korte beschrijving bij ieder resultaat, zoals weergegeven op de zoek resultaten pagina.',
+    'Please enter a search term.' => 'Geef alstublieft een zoekterm op.',
     'Please enter a valid search term. It should have at least '.$min_wordlength.' characters and should not contain special characters.' => 'Voer a.u.b. een geldige zoekopdracht in. Deze dient minstens uit '.$min_wordlength.' karakters te bestaan en mag geen speciale tekens bevatten.',
     'Sorry, no results found.' => 'Uw zoekopdracht leverde geen resultaten op.',
     'Support of logical operators (Booleans)' => 'Ondersteuning voor logische operatoren (Booleaanse)',
     'Number of results to return per page on search results page.' => 'Aantal resultaten per pagina op de zoekresulaten pagina.',
     'Results per page' => 'Resulaten per pagina',
+    'Displaying results' => 'Weergegeven resulaten',
+    'of' => 'van',
+    'matches' => 'overeenkomsten'
     );
