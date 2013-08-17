@@ -37,6 +37,11 @@ This search plugin provides the following features:
 
 == CHANGELOG ==
 
+Version 1.0.2, 18/08/2013
+- added en-message.php
+- added it-message.php
+- small typo fix in update.php
+
 Version 1.0.1, 27/09/2011
 - Site_search plugin now supports sqlite
 - Moved texts from result-snippet to language file
